@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 
 public class Home {
 
@@ -54,16 +55,17 @@ public class Home {
 		frmAdmin.setBounds(100, 100, 681, 321);
 		frmAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAdmin.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("651px"),},
+				ColumnSpec.decode("73px"),
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				RowSpec.decode("35px"),
 				RowSpec.decode("59px"),
 				RowSpec.decode("20px"),}));
-		
-		lblNewLabel = new JLabel("Scan Student ID");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Cordia New", Font.PLAIN, 18));
-		frmAdmin.getContentPane().add(lblNewLabel, "1, 1, fill, top");
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		textField.addKeyListener(new KeyAdapter() {
@@ -104,7 +106,12 @@ public class Home {
 				}
 			}
 		});
-		frmAdmin.getContentPane().add(textField, "1, 2, fill, fill");
+		
+		lblNewLabel = new JLabel("Scan Student ID");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Cordia New", Font.PLAIN, 18));
+		frmAdmin.getContentPane().add(lblNewLabel, "2, 1, fill, top");
+		frmAdmin.getContentPane().add(textField, "2, 2, fill, fill");
 		textField.setColumns(10);
 		
 		/**
