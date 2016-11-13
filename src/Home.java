@@ -1,17 +1,21 @@
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import net.miginfocom.swing.MigLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class Home {
 
-	private JFrame frame;
+	private JFrame frmAdmin;
 	private JLabel lblNewLabel;
 	private static Home homeWindow;
 	private JTextField textField;
@@ -45,20 +49,23 @@ public class Home {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 681, 321);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[665px]", "[22px][][260px]"));
+		frmAdmin = new JFrame();
+		frmAdmin.setTitle("Admin");
+		frmAdmin.setBounds(100, 100, 681, 321);
+		frmAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAdmin.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("651px"),},
+			new RowSpec[] {
+				RowSpec.decode("35px"),
+				RowSpec.decode("59px"),
+				RowSpec.decode("20px"),}));
 		
 		lblNewLabel = new JLabel("Scan Student ID");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Cordia New", Font.PLAIN, 18));
-		frame.getContentPane().add(lblNewLabel, "cell 0 0,growx,aligny top");
-		
-		/**
-		 * Store value input from user in variable input until user press enter
-		 */
+		frmAdmin.getContentPane().add(lblNewLabel, "1, 1, fill, top");
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
@@ -68,19 +75,41 @@ public class Home {
 						System.out.println("Invalid student id");
 						homeWindow.textField.setText("");
 						input = "";
+						JOptionPane.showMessageDialog(new JFrame(), "Invalid Student ID\nPlease enter again");
 						return;
 					}
-					homeWindow.textField.setText("");
+					try {
+						homeWindow.textField.setText("");
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(), "Error-0101 (Can't reset text field)\nLocation: Home.java:80\n" + e.getMessage());
+					}
 					String array[] = {input};
 					input = "";
-					RequestInput.main(array);
+					try {
+						homeWindow.setVisible(false);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(), "Error-0102 (Can't set visibility of Home window)\nLocation: Home.java:87" + e.getMessage());
+					}
+					try {
+						RequestInput.main(array);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(), "Error-0103 (Can't call RequestInput.main())\nLocation: Home.java:92" + e.getMessage());
+					}
 				}else {
-					input += charInput;
+					try {
+						input += charInput;
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(new JFrame(), "Error-0102 (Can't concad input char to String)\nLocation: Home.java:98" + e.getMessage());
+					}
 				}
 			}
 		});
-		frame.getContentPane().add(textField, "cell 0 1,grow");
+		frmAdmin.getContentPane().add(textField, "1, 2, fill, fill");
 		textField.setColumns(10);
+		
+		/**
+		 * Store value input from user in variable input until user press enter
+		 */
 	}
 	
 	/**
@@ -88,7 +117,7 @@ public class Home {
 	 * @param input boolean true or false
 	 */
 	protected void setVisible(boolean input){
-		frame.setVisible(input);
+		frmAdmin.setVisible(input);
 	}
 
 	protected void setLabelText(String input){
