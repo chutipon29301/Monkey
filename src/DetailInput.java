@@ -114,6 +114,12 @@ public class DetailInput {
 		frame.getContentPane().add(btnCancel);
 		
 		btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				window.textField.setText("");
+				inputTextbox = "";
+			}
+		});
 		btnClear.setBounds(1114, 754, 227, 84);
 		frame.getContentPane().add(btnClear);
 		
